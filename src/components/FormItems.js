@@ -19,8 +19,8 @@ export const FormItems = () => {
         Swal.fire('Por favor escribe algo válido')
       }
       else {
-        let newList = [...(state.list || []), `${textAdd}`]
-        let previousList = [...(state.list || [])]
+        let newList = [...(listActual || []), `${textAdd}`]
+        let previousList = [...(listActual || [])]
 
         setState({
             ...state,
@@ -32,13 +32,13 @@ export const FormItems = () => {
     }
 
     const handleDeleteSelection = () => {
-        
-        let result = listActual.filter((a, i) => !selected.includes(i))
+        let result = [...(state.list || [])].filter((a, i) => !selected.includes(i))
+        let previousList = [...(state.list || [])]
        
         setState({
             list: result,
             listSelected:[],
-            prevSta: listActual,   
+            prevSta: previousList,   
         })
     }
 
