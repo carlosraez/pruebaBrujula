@@ -1,29 +1,49 @@
 import React, { useContext } from 'react'
 import { ItemsContext } from './ItemsContext'
 
-
 export const ListItem = () => {
 
-    const { state, setState } = useContext(ItemsContext)
+    const { state, setState} = useContext(ItemsContext)
    
     const items  = state.list
+    const selec  = state.listSelected
     
     const handleSelection = (index) => {
-       const newSelec =  state.listSelected.push(index)
-       setState({
-          listSelected:newSelec,
-          ...state
-       })
-  
-    }
+       
+        let isSelected = selec.includes(index)
+        console.log(isSelected);
 
-    const handleTrClick = (index) => {
-        let actual = items[index]
-        
-        
-    }
-
+        if(isSelected) {
+            let res = selec.filter((a)=> a !== index)
     
+            setState({
+                ...state,
+                listSelected: res,
+               
+             })
+             console.log(state);
+        }
+
+        else {
+            let res = selec || []
+            res.push(index)
+            setState({
+                ...state,
+                listSelected: res,
+
+             })
+        }
+    }
+
+    const handleTrClick = (indexActual) => {
+
+        let res  = items.filter((a, index) =>  { return  items[index] !== items[indexActual] })
+        setState({
+            ...state,
+            list: res,
+
+         })
+    }
 
     return (
         <div>
@@ -38,12 +58,13 @@ export const ListItem = () => {
             <tbody>
             {
                 items.map( (item,index) => {
-                    
+                    let clss = selec.includes(index) ? 'alert alert-info' : ''
+                    let textButton = selec.includes(index) ? 'Seleccionado' : 'Seleccionar'
                     return (
-                        <tr key={index} onClick={() => handleTrClick(index)}>
+                        <tr key={index} onDoubleClick={() => handleTrClick(index)} className={clss} >
                             <th scope="row">{index + 1}</th>
                             <td >{item}</td>
-                            <td><button className="btn btn-primary" onClick={ () => handleSelection(index)}>Seleccionar</button></td>
+                            <td><button className="btn btn-primary" onClick={ () => handleSelection(index)}>{textButton}</button></td>
                         </tr>
                     )
                 })

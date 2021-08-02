@@ -8,13 +8,12 @@ export const App = () => {
   const [state, setState] = useState({
       list:[],
       listSelected:[],
+      prevSta:[]
   })
-
- 
 
   return (
   <ItemsContext.Provider value={{
-    state, setState
+    state, setState, 
   }} >
       <div className="container">
         <h1>Agrega Items a tu lista</h1>

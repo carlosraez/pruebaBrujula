@@ -1,41 +1,53 @@
 import React, { useContext } from 'react'
 import { ItemsContext } from './ItemsContext'
 
-
 export const FormItems = () => {
 
-    const { state , setState } = useContext(ItemsContext)
+    const { state , setState, } = useContext(ItemsContext)
 
+        let listActual = state.list
+        let selected = state.listSelected
+        let prev = state.prevSta
+    
     const handleAdd = () => {
-     const textAdd =   prompt('Escribe una cadena de texto')
-     if (textAdd.length > 0 || []) {
-        let newList = state.list
+     let textAdd =   prompt('Escribe una cadena de texto')
+      console.log(listActual);
+     setState({
+        ...state,
+        prevSta: listActual,   
+     })
+     
+     if (textAdd.length > 0 ) {
+        let newList = listActual
         newList.push(`${textAdd}`)
         setState({
+            ...state,
             list: newList,
-            ...state   
         })
       }
+    
     }
 
     const handleDeleteSelection = () => {
-        let listActual = state.list
-        let selected = state.listSelected
-
+        
         let result = listActual.filter((a, i) => !selected.includes(i))
        
-    
-        
         setState({
             list: result,
-            listSelected:[]   
+            listSelected:[],
+            prevSta: listActual,   
         })
     }
 
     const handleUndo = () => {
-
+        let prevState = prev
+        console.log(prevState);
+        setState({
+            ...state,
+            list: prevState,  
+        })
+         
     }
-
 
     return (
         <div className="card">
