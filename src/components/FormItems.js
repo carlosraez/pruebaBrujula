@@ -21,14 +21,13 @@ export const FormItems = () => {
     const handleDeleteSelection = () => {
         let listActual = state.list
         let selected = state.listSelected
+
+        let result = listActual.filter((a, i) => !selected.includes(i))
+       
     
-        for (let index = 0; index < selected.length; index++) {
-              const position = selected[index] 
-              listActual.splice(position, 1);
- 
-        }
+        
         setState({
-            list: listActual,
+            list: result,
             listSelected:[]   
         })
     }
