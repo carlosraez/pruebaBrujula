@@ -5,14 +5,17 @@ import { ItemsContext } from './ItemsContext'
 export const FormItems = () => {
 
     const { state , setState } = useContext(ItemsContext)
+    console.log(state);
 
     const handleAdd = () => {
      const textAdd =   prompt('Escribe una cadena de texto')
-     console.log(textAdd);
-     let prevState = state
-     console.log(prevState);
-     const newItems   = prevState.push(textAdd)
-     console.log(newItems);
+     if (textAdd.length > 0) {
+        let newList = state.list
+        newList.push(`${textAdd}`)
+        setState({
+            list: newList
+        })
+      }
     }
 
     const handleDelete = () => {

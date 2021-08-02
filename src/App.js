@@ -5,11 +5,15 @@ import { ItemsContext } from './components/ItemsContext'
 
 export const App = () => {
 
-  const [state, setstate] = useState([])
+  const [state, setState] = useState({
+      list:[]
+  })
+
+ 
 
   return (
   <ItemsContext.Provider value={{
-    state, setstate
+    state, setState
   }} >
       <div className="container">
         <h1>Agrega Items a tu lista</h1>
