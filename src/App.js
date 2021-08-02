@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { FormItems } from './components/FormItems'
+import { ListItem } from './components/ListItem'
+import { ItemsContext } from './components/ItemsContext'
 
-function App() {
+export const App = () => {
+
+  const [state, setstate] = useState([])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  <ItemsContext.Provider value={{
+    state, setstate
+  }} >
+      <div className="container">
+        <h1>Agrega Items a tu lista</h1>
+        <div className="row">
+          <div className="col-8">
+              <ListItem />
+          </div>
+          <div className="col-4">
+              <FormItems />
+          </div>
+        </div>
+      </div>
+  </ItemsContext.Provider>
+  )
 }
 
-export default App;
