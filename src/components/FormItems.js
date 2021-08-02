@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import { ItemsContext } from './ItemsContext'
+import Swal from 'sweetalert2'
+import './form.css'
 
 export const FormItems = () => {
 
@@ -10,21 +12,20 @@ export const FormItems = () => {
         let prev = state.prevSta
     
     const handleAdd = () => {
-        
-      console.log(listActual);
-
-     let textAdd =   prompt('Escribe una cadena de texto')
-     
   
+      let textAdd =  prompt('Escribe una cadena de texto')
+     
      if (textAdd == null || textAdd === "") {
-        alert('Por favor escribe algo válido')
+        Swal.fire('Por favor escribe algo válido')
       }
       else {
-        let newList = listActual
-        newList.push(`${textAdd}`)
+        let newList = [...(state.list || []), `${textAdd}`]
+        let previousList = [...(state.list || [])]
+
         setState({
             ...state,
             list: newList, 
+            prevSta: previousList
         })
       }
     
@@ -43,7 +44,7 @@ export const FormItems = () => {
 
     const handleUndo = () => {
         let prevState = prev
-
+ 
         setState({
             ...state,
             list: prevState,  
