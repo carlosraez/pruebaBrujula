@@ -3,26 +3,28 @@ import { ItemsContext } from './ItemsContext'
 
 export const FormItems = () => {
 
-    const { state , setState, } = useContext(ItemsContext)
+    const { state , setState } = useContext(ItemsContext)
 
         let listActual = state.list
         let selected = state.listSelected
         let prev = state.prevSta
     
     const handleAdd = () => {
-     let textAdd =   prompt('Escribe una cadena de texto')
+        
       console.log(listActual);
-     setState({
-        ...state,
-        prevSta: listActual,   
-     })
+
+     let textAdd =   prompt('Escribe una cadena de texto')
      
-     if (textAdd.length > 0 ) {
+  
+     if (textAdd == null || textAdd === "") {
+        alert('Por favor escribe algo válido')
+      }
+      else {
         let newList = listActual
         newList.push(`${textAdd}`)
         setState({
             ...state,
-            list: newList,
+            list: newList, 
         })
       }
     
@@ -41,16 +43,15 @@ export const FormItems = () => {
 
     const handleUndo = () => {
         let prevState = prev
-        console.log(prevState);
+
         setState({
             ...state,
             list: prevState,  
-        })
-         
+        })   
     }
 
     return (
-        <div className="card">
+        <div className="card card-form">
            <h5 className="card-title">Acciones</h5>
                 <p className="card-text">En esta seccion usted puede: agregar, quitar y deshacer</p>
                 <div className="d-grid gap-3">
