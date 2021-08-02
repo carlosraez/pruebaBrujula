@@ -4,13 +4,26 @@ import { ItemsContext } from './ItemsContext'
 
 export const ListItem = () => {
 
-    const { state } = useContext(ItemsContext)
+    const { state, setState } = useContext(ItemsContext)
    
-    const items = state.list
-
-    const handleSelection = (i) => {
-        alert('me has pulasdo y soy el ' + i)
+    const items  = state.list
+    
+    const handleSelection = (index) => {
+       const newSelec =  state.listSelected.push(index)
+       setState({
+          listSelected:newSelec,
+          ...state
+       })
+  
     }
+
+    const handleTrClick = (index) => {
+        let actual = items[index]
+        
+        
+    }
+
+    
 
     return (
         <div>
@@ -24,12 +37,13 @@ export const ListItem = () => {
                  </thead>
             <tbody>
             {
-                items.map( (item,i) => {
+                items.map( (item,index) => {
+                    
                     return (
-                        <tr key={i}>
-                            <th scope="row">{i + 1}</th>
+                        <tr key={index} onClick={() => handleTrClick(index)}>
+                            <th scope="row">{index + 1}</th>
                             <td >{item}</td>
-                            <td><button className="btn btn-primary" onClick={ (index) => handleSelection}>Seleccionar</button></td>
+                            <td><button className="btn btn-primary" onClick={ () => handleSelection(index)}>Seleccionar</button></td>
                         </tr>
                     )
                 })

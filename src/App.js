@@ -6,7 +6,8 @@ import { ItemsContext } from './components/ItemsContext'
 export const App = () => {
 
   const [state, setState] = useState({
-      list:[]
+      list:[],
+      listSelected:[],
   })
 
  
